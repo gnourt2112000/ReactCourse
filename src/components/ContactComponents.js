@@ -57,28 +57,28 @@ class Contact extends Component{
                         <div className="row mb-3">
                             <label for="firstname" className="col-md-2 col-form-label">First Name</label>
                             <div className="col-md-10">
-                                <Control.Text model=".firstname" className="form-control" id="firstname" name="firstname" placeholder="First Name"/>                               
+                                <Control.text model=".firstname" className="form-control" id="firstname" name="firstname" placeholder="First Name"/>                               
                             </div>
                         </div>
                     
                         <div className="row mb-3">
                             <label for="lastname" className="col-md-2 col-form-label">Last Name</label>
                             <div className="col-md-10">
-                                <Control.Text model=".lastname" className="form-control" id="lastname" name="lastname" placeholder="Last Name"/>                              
+                                <Control.text model=".lastname" className="form-control" id="lastname" name="lastname" placeholder="Last Name"/>                              
                             </div>
                         </div>
 
                         <div className="row mb-3">
                             <label for="telnum" className="col-12 col-md-2 col-form-label">Contact Tel.</label>
                             <div className="col-md-10">
-                                <Control.Text model=".telnum" className="form-control" id="telnum" name="telnum" placeholder="Tel. Number"/>                              
+                                <Control.text model=".telnum" className="form-control" id="telnum" name="telnum" placeholder="Tel. Number"/>                              
                             </div>
                         </div>
                     
                         <div className="row mb-3">
                             <label for="email" className="col-md-2 col-form-label">Email</label>
                             <div className="col-md-10">
-                                <Control.Text model=".email"  className="form-control" id="email" name="email" placeholder="Email"/>
+                                <Control.text model=".email"  className="form-control" id="email" name="email" placeholder="Email"/>
                             </div>
                         </div>
                     
@@ -86,24 +86,24 @@ class Contact extends Component{
                             <div className="col-md-6 offset-md-2">
                                 <div className="form-check">
                                     <label for="agree" className="form-check-label">
-                                        <Control.Checkbox model=".agree" className="form-check-Input" name="agree" id="agree"/>
+                                        <Control.checkbox model=".agree" className="form-check-Input" name="agree" id="agree"/>
                                         {' '}<strong>May we contact you ?</strong>
                                     </label>
                                 </div>
                             </div>
 
                             <div className="col-md-3 offset-md-1">
-                                <Control.Select model=".contactType" className="form-select" name="contactType">
+                                <Control.select model=".contactType" className="form-select" name="contactType">
                                     <option>Tel.</option>
                                     <option>Email</option>
-                                </Control.Select>
+                                </Control.select>
                             </div>
                         </div>
                     
                         <div className="row mb-3">
                             <label for="message" className="col-md-2 col-form-label">Your Feedback</label>
                             <div className="col-md-10">
-                                <Control.Textarea model=".message" className="form-control" name="message" id="message" rows="12" ></Control.Textarea>
+                                <Control.textarea model=".message" className="form-control" name="message" id="message" rows="12" ></Control.textarea>
                             </div>
                         </div>
                         <div className="row mb-3">
