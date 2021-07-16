@@ -1,9 +1,16 @@
 import {Breadcrumb,BreadcrumbItem} from 'reactstrap';
-import {Control,LocalForm,Error} from 'react-redux-form';
+import {Control,LocalForm,Errors} from 'react-redux-form';
 import {Link} from 'react-router-dom';
-import { Component } from 'react';
-class Contact extends Component{
+import {Component} from 'react';
 
+const required = (val) => val && val.length;
+const maxLength = (len) => (val) => !(val) || (val.length <= len);
+const minLength = (len) => (val) => val && (val.length >= len);
+const isNumber = (val) => !isNaN(Number(val));
+const validEmail = (val) => /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(val);
+class Contact extends Component{
+    
+    
     handleSubmit = (values) =>{
         console.log('Current State is: '+ JSON.stringify(values));
         alert('Current State is: '+ JSON.stringify(values));
@@ -52,47 +59,103 @@ class Contact extends Component{
                     <div className="col-12">
                         <h3>Send us your Feedback</h3>
                     </div>
-
+                    
                     <LocalForm className="col-12 col-md-9 mt-3" onSubmit={(values) => this.handleSubmit(values)}>
                         <div className="row mb-3">
                             <label for="firstname" className="col-md-2 col-form-label">First Name</label>
                             <div className="col-md-10">
-                                <Control.text model=".firstname" className="form-control" id="firstname" name="firstname" placeholder="First Name"/>                               
+                                {/* eslint-disable-next-line */} 
+                                <Control.text model=".firstname" className="form-control" id="firstname" name="firstname" placeholder="First Name"
+                                    validators={{
+                                        required, minLength: minLength(3), maxLength: maxLength(15)
+                                    }}
+                                />
+                                <Errors className="text-danger" model=".firstname" show="touched"
+                                    messages={{
+                                        required:'Required! ',
+                                        minLength:'Must be greater than 2 characters',
+                                        maxLength:'Must be 15 characters or less'
+                                    }}
+                                ></Errors>                               
                             </div>
                         </div>
                     
                         <div className="row mb-3">
                             <label for="lastname" className="col-md-2 col-form-label">Last Name</label>
                             <div className="col-md-10">
-                                <Control.text model=".lastname" className="form-control" id="lastname" name="lastname" placeholder="Last Name"/>                              
+                                {/* eslint-disable-next-line */} 
+                                <Control.text model=".lastname" className="form-control" id="lastname" name="lastname" placeholder="Last Name"
+                                    validators={{
+                                        required,
+                                        minLength: minLength(3),
+                                        maxLength: maxLength(15)
+                                    }}
+                                />
+                                <Errors className="text-danger" model=".lastname" show="touched"
+                                    messages={{
+                                        required:'Required! ',
+                                        minLength:'Must be greater than 2 characters',
+                                        maxLength:'Must be 15 characters or less'
+                                    }}
+                                ></Errors>                               
                             </div>
                         </div>
 
                         <div className="row mb-3">
                             <label for="telnum" className="col-12 col-md-2 col-form-label">Contact Tel.</label>
                             <div className="col-md-10">
-                                <Control.text model=".telnum" className="form-control" id="telnum" name="telnum" placeholder="Tel. Number"/>                              
+                                {/* eslint-disable-next-line */} 
+                                <Control.text model=".telnum" className="form-control" id="telnum" name="telnum" placeholder="Tel. Number"
+                                    validators={{
+                                        required,
+                                        minLength: minLength(3),
+                                        maxLength: maxLength(15),
+                                        isNumber
+                                    }}
+                                />
+                                <Errors className="text-danger" model=".telnum" show="touched"
+                                    messages={{
+                                        required:'Required! ',
+                                        minLength:'Must be greater than 2 characters',
+                                        maxLength:'Must be 15 characters or less',
+                                        isNumber:'Must be a number'
+                                    }}  
+                                ></Errors>                              
                             </div>
                         </div>
                     
                         <div className="row mb-3">
                             <label for="email" className="col-md-2 col-form-label">Email</label>
                             <div className="col-md-10">
-                                <Control.text model=".email"  className="form-control" id="email" name="email" placeholder="Email"/>
+                                {/* eslint-disable-next-line */} 
+                                <Control.text model=".email"  className="form-control" id="email" name="email" placeholder="Email"
+                                    validators={{
+                                        required,
+                                        validEmail
+                                    }} 
+                                />
+                                <Errors className="text-danger" model=".email" show="touched"
+                                    messages={{
+                                        required:'Required! ',
+                                        validEmail:'Invalid Email Address'
+                                    }}  
+                                ></Errors>
                             </div>
                         </div>
                     
                         <div className="row mb-3">
                             <div className="col-md-6 offset-md-2">
-                                <div className="form-check">
+                                <div>
+                                    {/* eslint-disable-next-line */} 
+                                    <Control.checkbox model=".agree" className="form-check-Input" name="agree" id="agree"/>{' '}   
                                     <label for="agree" className="form-check-label">
-                                        <Control.checkbox model=".agree" className="form-check-Input" name="agree" id="agree"/>
-                                        {' '}<strong>May we contact you ?</strong>
+                                        <strong>May we contact you ?</strong>
                                     </label>
                                 </div>
                             </div>
 
                             <div className="col-md-3 offset-md-1">
+                                {/* eslint-disable-next-line */} 
                                 <Control.select model=".contactType" className="form-select" name="contactType">
                                     <option>Tel.</option>
                                     <option>Email</option>
@@ -103,6 +166,7 @@ class Contact extends Component{
                         <div className="row mb-3">
                             <label for="message" className="col-md-2 col-form-label">Your Feedback</label>
                             <div className="col-md-10">
+                                {/* eslint-disable-next-line */} 
                                 <Control.textarea model=".message" className="form-control" name="message" id="message" rows="12" ></Control.textarea>
                             </div>
                         </div>
