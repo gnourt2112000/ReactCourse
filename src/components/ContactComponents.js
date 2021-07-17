@@ -1,5 +1,5 @@
 import {Breadcrumb,BreadcrumbItem} from 'reactstrap';
-import {Control,LocalForm,Errors} from 'react-redux-form';
+import {Control,Form,Errors} from 'react-redux-form';
 import {Link} from 'react-router-dom';
 import {Component} from 'react';
 
@@ -14,6 +14,7 @@ class Contact extends Component{
     handleSubmit = (values) =>{
         console.log('Current State is: '+ JSON.stringify(values));
         alert('Current State is: '+ JSON.stringify(values));
+        this.props.resetFeedbackForm();
     }
 
     render(){
@@ -60,7 +61,7 @@ class Contact extends Component{
                         <h3>Send us your Feedback</h3>
                     </div>
                     
-                    <LocalForm className="col-12 col-md-9 mt-3" onSubmit={(values) => this.handleSubmit(values)}>
+                    <Form model="feedback" className="col-12 col-md-9 mt-3" onSubmit={(values) => this.handleSubmit(values)}>
                         <div className="row mb-3">
                             <label for="firstname" className="col-md-2 col-form-label">First Name</label>
                             <div className="col-md-10">
@@ -175,7 +176,7 @@ class Contact extends Component{
                                 <button type="submit" className="btn btn-primary">Send Deedback</button>
                             </div>
                         </div>
-                    </LocalForm>
+                    </Form>
 
                     <div className="col-12 col-md">
                     </div>
