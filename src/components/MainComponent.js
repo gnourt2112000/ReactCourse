@@ -12,6 +12,7 @@ import { postComment,fetchDishes,fetchComments,fetchPromos } from '../redux/Acti
 import { actions } from 'react-redux-form';
 import {TransitionGroup, CSSTransition} from 'react-transition-group'
 
+
 const mapStateToProps = state =>{
   return{
     dishes : state.dishes,
