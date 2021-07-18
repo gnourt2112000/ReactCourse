@@ -39,6 +39,7 @@ export const postComment = (dishId, rating, author, comment) => (dispatch) =>{
     
 }
 
+
 export const fetchDishes = () => (dispatch) =>{
     dispatch(dishesLoading(true));
     return fetch(baseUrl + 'dishes')
@@ -135,3 +136,65 @@ export const addPromos = (promos) =>({
     type : ActionTypes.ADD_PROMOS,
     payload : promos
 })
+
+
+export const fetchLeaders= () => (dispatch)=>{
+   
+    return fetch(baseUrl + 'leaders')
+    .then(response =>{
+        if(response.ok){
+            return response
+        }else {
+            var error = new Error('Error ' + response.status+': ' + response.statusText);
+            error.response = response;
+            throw error;
+        }
+    },error =>{
+        var errMess = new Error(error.message);
+        throw errMess
+    })
+    .then(response => response.json())
+    .then(leaders => dispatch(addLeaders(leaders)))
+    .catch(error => dispatch(leadersFailed(error.message)))
+}
+
+export const leadersLoading = ()=>({
+    type : ActionTypes.LEADERS_LOADING
+})
+
+export const leadersFailed = (errmess) => ({
+    type : ActionTypes.LEADERS_FAILED,
+    payload : errmess
+})
+
+export const addLeaders = (leaders) =>({
+    type : ActionTypes.ADD_LEADERS,
+    payload : leaders
+})
+
+export const postFeedback = (newFeedback) => (dispatch) => {
+
+    newFeedback.Date = (new Date()).toISOString()
+    return fetch(baseUrl + 'feedback',{
+        method: "POST",
+        body: JSON.stringify(newFeedback),
+        headers:{
+            "Content-Type": "application/json"
+        },
+        credentials: 'same-origin'
+     })
+     .then(response =>{
+         if(response.ok){
+             return response
+         }else {
+             var error = new Error('Error ' + response.status+': ' + response.statusText);
+             error.response = response;
+             throw error;
+         }
+     },error =>{
+         throw error
+     })
+     .then(response => response.json())
+     .then(response =>  alert("Feedback: "+JSON.stringify(response)))
+     .catch(error => {console.log('post feedback',error.message); alert('Your feedback could not be posted \n Error: '+error.message);})
+}
